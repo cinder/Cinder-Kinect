@@ -44,7 +44,7 @@ void kinectBasicApp::mouseUp( MouseEvent event )
 	
 	// set tilt to random angle
 	mKinect.setTilt( Rand::randFloat() * 62 - 31 );
-shared_ptr<uint16_t> d = mKinect.getDepthData();	
+
 	mKinect.setLedColor( Kinect::LED_YELLOW );
 }
 
@@ -61,7 +61,6 @@ void kinectBasicApp::update()
 
 void kinectBasicApp::draw()
 {
-	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
 	gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
 	if( mDepthTexture )
