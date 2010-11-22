@@ -94,6 +94,7 @@ class ImageSourceKinectDepth : public ImageSource {
 	uint16_t					*mData;
 };
 
+// Used as the deleter for the shared_ptr returned by getImageData() and getDepthData()
 template<typename T>
 class KinectDataDeleter {
   public:
@@ -109,8 +110,8 @@ class KinectDataDeleter {
 	Kinect::Obj::BufferManager<T> *mBufferMgr;
 };
 
-Kinect::Kinect( int deviceIndex )
-	: mObj( new Obj( deviceIndex ) )
+Kinect::Kinect( Device device )
+	: mObj( new Obj( device.mIndex ) )
 {
 }
 
@@ -143,28 +144,32 @@ Kinect::Obj::~Obj()
 void Kinect::colorImageCB( freenect_device *dev, freenect_pixel *rgb, uint32_t timestamp )
 {
 	Kinect::Obj *kinectObj = reinterpret_cast<Kinect::Obj*>( freenect_get_user( dev ) );
-	uint8_t *destPixels = kinectObj->mColorBuffers.getNewBuffer();
 	{
-		lock_guard<mutex> lock( kinectObj->mMutex );
-		memcpy( destPixels, rgb, 640 * 480 * 3 * sizeof(uint8_t) );
-		kinectObj->mNewColorFrame = true;
+		lock_guard<recursive_mutex> lock( kinectObj->mMutex );
+		
+		kinectObj->mColorBuffers.derefActiveBuffer();					// finished with current active buffer
+		uint8_t *destPixels = kinectObj->mColorBuffers.getNewBuffer();	// request a new buffer
+		memcpy( destPixels, rgb, 640 * 480 * 3 * sizeof(uint8_t) );		// blast the pixels in
+		kinectObj->mColorBuffers.setActiveBuffer( destPixels );			// set this new buffer to be the current active buffer
+		kinectObj->mNewColorFrame = true;								// flag that there's a new color frame
 	}
-	kinectObj->mColorBuffers.setActiveBuffer( destPixels );
 }
 
 void Kinect::depthImageCB( freenect_device *dev, freenect_depth *depth, uint32_t timestamp )
 {
 	Kinect::Obj *kinectObj = reinterpret_cast<Kinect::Obj*>( freenect_get_user( dev ) );
-	uint16_t *destPixels = kinectObj->mDepthBuffers.getNewBuffer();
 	{
-		lock_guard<mutex> lock( kinectObj->mMutex );
-		for( size_t p = 0; p < 640 * 480; ++p ) { // out = 1.0 - ( in / 2048 ) ^ 2
+		lock_guard<recursive_mutex> lock( kinectObj->mMutex );
+
+		kinectObj->mDepthBuffers.derefActiveBuffer();					// finished with current active buffer
+		uint16_t *destPixels = kinectObj->mDepthBuffers.getNewBuffer(); // request a new buffer
+		for( size_t p = 0; p < 640 * 480; ++p ) {						// out = 1.0 - ( in / 2048 ) ^ 2
 			uint32_t v = depth[p];
-			destPixels[p] = 65535 - ( v * v ) >> 4; // 1 / ( 2^10 * 2^10 ) * 2^16 = 2^-4
+			destPixels[p] = 65535 - ( v * v ) >> 4;						// 1 / ( 2^10 * 2^10 ) * 2^16 = 2^-4
 		}
-		kinectObj->mNewDepthFrame = true;
+		kinectObj->mDepthBuffers.setActiveBuffer( destPixels );			// set this new buffer to be the current active buffer
+		kinectObj->mNewDepthFrame = true;								// flag that there's a new depth frame
 	}
-	kinectObj->mDepthBuffers.setActiveBuffer( destPixels );
 }
 
 void Kinect::threadedFunc( Kinect::Obj *kinectObj )
@@ -201,7 +206,7 @@ int	Kinect::getNumDevices()
 
 bool Kinect::checkNewColorFrame()
 {
-	lock_guard<mutex> lock( mObj->mMutex );
+	lock_guard<recursive_mutex> lock( mObj->mMutex );
 	bool oldValue = mObj->mNewColorFrame;
 	mObj->mNewColorFrame = false;
 	return oldValue;
@@ -209,7 +214,7 @@ bool Kinect::checkNewColorFrame()
 
 bool Kinect::checkNewDepthFrame()
 {
-	lock_guard<mutex> lock( mObj->mMutex );
+	lock_guard<recursive_mutex> lock( mObj->mMutex );
 	bool oldValue = mObj->mNewDepthFrame;
 	mObj->mNewDepthFrame = false;
 	return oldValue;
@@ -279,7 +284,7 @@ Kinect::Obj::BufferManager<T>::~BufferManager()
 template<typename T>
 T* Kinect::Obj::BufferManager<T>::getNewBuffer()
 {
-	lock_guard<mutex> lock( mKinectObj->mMutex );
+	lock_guard<recursive_mutex> lock( mKinectObj->mMutex );
 
 	typename map<T*,size_t>::iterator bufIt;
 	for( bufIt = mBuffers.begin(); bufIt != mBuffers.end(); ++bufIt ) {
@@ -300,9 +305,7 @@ T* Kinect::Obj::BufferManager<T>::getNewBuffer()
 template<typename T>
 void Kinect::Obj::BufferManager<T>::setActiveBuffer( T *buffer )
 {
-	lock_guard<mutex> lock( mKinectObj->mMutex );
-	// decrement use count on current active buffer
-	mBuffers[mActiveBuffer]--;
+	lock_guard<recursive_mutex> lock( mKinectObj->mMutex );
 	// assign new active buffer
 	mActiveBuffer = buffer;
 }
@@ -310,15 +313,23 @@ void Kinect::Obj::BufferManager<T>::setActiveBuffer( T *buffer )
 template<typename T>
 T* Kinect::Obj::BufferManager<T>::refActiveBuffer()
 {
-	lock_guard<mutex> lock( mKinectObj->mMutex );
+	lock_guard<recursive_mutex> lock( mKinectObj->mMutex );
 	mBuffers[mActiveBuffer]++;
 	return mActiveBuffer;
 }
 
 template<typename T>
+void Kinect::Obj::BufferManager<T>::derefActiveBuffer()
+{
+	lock_guard<recursive_mutex> lock( mKinectObj->mMutex );
+	if( mActiveBuffer ) 	// decrement use count on current active buffer
+		mBuffers[mActiveBuffer]--;		
+}
+
+template<typename T>
 void Kinect::Obj::BufferManager<T>::derefBuffer( T *buffer )
 {
-	lock_guard<mutex> lock( mKinectObj->mMutex );
+	lock_guard<recursive_mutex> lock( mKinectObj->mMutex );
 	mBuffers[buffer]--;
 }
 
