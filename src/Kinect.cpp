@@ -269,6 +269,14 @@ std::shared_ptr<uint16_t> Kinect::getDepthData()
 
 // Buffer management
 template<typename T>
+Kinect::Obj::BufferManager<T>::~BufferManager()
+{
+	for( typename map<T*,size_t>::iterator bufIt = mBuffers.begin(); bufIt != mBuffers.end(); ++bufIt ) {
+		delete [] bufIt->first;
+	}
+}
+
+template<typename T>
 T* Kinect::Obj::BufferManager<T>::getNewBuffer()
 {
 	lock_guard<mutex> lock( mKinectObj->mMutex );
