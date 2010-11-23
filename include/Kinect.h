@@ -47,10 +47,19 @@ namespace cinder {
 
 class Kinect {
   public:
+	//! Represents the identifier for a particular Kinect
+	struct Device {
+		Device( int index = 0 )
+			: mIndex( 0 )
+		{}
+		
+		int		mIndex;
+	};
+  
 	//! Default constructor - creates an uninitialized instance
 	Kinect() {}
-	//! Creates a new Kinect based on device # \a deviceIndex. 0 is the typical value for \a deviceIndex.
-	Kinect( int deviceIndex );
+	//! Creates a new Kinect based on Device # \a device. 0 is the typical value for \a deviceIndex.
+	Kinect( Device device );
 	
 	//! Returns whether there is a new color frame available since the last call to checkNewColorFrame(). Call getColorImage() to retrieve it.
 	bool		checkNewColorFrame();
@@ -114,11 +123,13 @@ class Kinect {
 		template<typename T>
 		struct BufferManager {
 			BufferManager( size_t allocationSize, Obj *kinectObj )
-				: mAllocationSize( allocationSize ), mKinectObj( kinectObj )
+				: mAllocationSize( allocationSize ), mKinectObj( kinectObj ), mActiveBuffer( 0 )
 			{}
+			~BufferManager();
 			
 			T*			getNewBuffer();
 			void		setActiveBuffer( T *buffer );
+			void		derefActiveBuffer();
 			T*			refActiveBuffer();
 			void		derefBuffer( T *buffer );
 
@@ -130,14 +141,14 @@ class Kinect {
 		};
 				
 		std::shared_ptr<std::thread>	mThread;
-		std::mutex						mMutex;
+		std::recursive_mutex			mMutex;
 		freenect_device					*mDevice;
 
 		BufferManager<uint8_t>			mColorBuffers;
 		BufferManager<uint16_t>			mDepthBuffers;
 		
-		bool							mShouldDie;
-		bool							mNewColorFrame, mNewDepthFrame;
+		volatile bool					mShouldDie;
+		volatile bool					mNewColorFrame, mNewDepthFrame;
 		float							mTilt;
 	};
 
