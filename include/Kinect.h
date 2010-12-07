@@ -50,7 +50,7 @@ class Kinect {
 	//! Represents the identifier for a particular Kinect
 	struct Device {
 		Device( int index = 0 )
-			: mIndex( 0 )
+			: mIndex( index )
 		{}
 		
 		int		mIndex;
