@@ -64,6 +64,37 @@ class ImageSourceKinectColor : public ImageSource {
 	uint8_t						*mData;
 };
 
+class ImageSourceKinectInfrared : public ImageSource {
+  public:
+	ImageSourceKinectInfrared( uint8_t *buffer, shared_ptr<Kinect::Obj> ownerObj )
+		: ImageSource(), mData( buffer ), mOwnerObj( ownerObj )
+	{
+		setSize( 640, 480 );
+		setColorModel( ImageIo::CM_GRAY );
+		setChannelOrder( ImageIo::Y );
+		setDataType( ImageIo::UINT8 );
+	}
+
+	~ImageSourceKinectInfrared()
+	{
+		// let the owner know we are done with the buffer
+		mOwnerObj->mColorBuffers.derefBuffer( mData );
+	}
+
+	virtual void load( ImageTargetRef target )
+	{
+		ImageSource::RowFunc func = setupRowFunc( target );
+		
+		for( int32_t row = 0; row < 480; ++row )
+			((*this).*func)( target, row, mData + row * 640 * 1 );
+	}
+	
+  protected:
+	shared_ptr<Kinect::Obj>		mOwnerObj;
+	uint8_t						*mData;
+};
+
+
 class ImageSourceKinectDepth : public ImageSource {
   public:
 	ImageSourceKinectDepth( uint16_t *buffer, shared_ptr<Kinect::Obj> ownerObj )
@@ -116,21 +147,22 @@ Kinect::Kinect( Device device )
 }
 
 Kinect::Obj::Obj( int deviceIndex )
-	: mShouldDie( false ), mNewColorFrame( false ), mNewDepthFrame( false ), 
-		mColorBuffers( 640 * 480 * 3, this ), mDepthBuffers( 640 * 480, this )
+	: mShouldDie( false ), mNewVideoFrame( false ), mNewDepthFrame( false ), 
+		mColorBuffers( 640 * 480 * 3, this ), mDepthBuffers( 640 * 480, this ), mVideoInfrared( false )
 {
 	if( freenect_open_device( getContext(), &mDevice, deviceIndex ) < 0 )
 		throw ExcFailedOpenDevice();
 
 	freenect_set_user( mDevice, this );
-	freenect_set_tilt_degs( mDevice, 0 );
+	freenect_raw_tilt_state *tiltState = freenect_get_tilt_state( mDevice );
+	mTilt = freenect_get_tilt_degs( tiltState );
 	freenect_set_led( mDevice, ::LED_GREEN );
 	freenect_set_depth_callback( mDevice, depthImageCB );
-	freenect_set_rgb_callback( mDevice, colorImageCB );
-	freenect_set_rgb_format( mDevice, FREENECT_FORMAT_RGB );
-	freenect_set_depth_format( mDevice, FREENECT_FORMAT_11_BIT );
+	freenect_set_video_callback( mDevice, colorImageCB );
+	freenect_set_video_format( mDevice, FREENECT_VIDEO_RGB );
+	freenect_set_depth_format( mDevice, FREENECT_DEPTH_11BIT );
 
-	mTilt = 0;
+	mLastVideoFrameInfrared = mVideoInfrared;
 	
 	mThread = shared_ptr<thread>( new thread( threadedFunc, this ) );
 }
@@ -141,7 +173,7 @@ Kinect::Obj::~Obj()
 	mThread->join();
 }
 
-void Kinect::colorImageCB( freenect_device *dev, freenect_pixel *rgb, uint32_t timestamp )
+void Kinect::colorImageCB( freenect_device *dev, void *rgb, uint32_t timestamp )
 {
 	Kinect::Obj *kinectObj = reinterpret_cast<Kinect::Obj*>( freenect_get_user( dev ) );
 	{
@@ -149,17 +181,23 @@ void Kinect::colorImageCB( freenect_device *dev, freenect_pixel *rgb, uint32_t t
 		
 		kinectObj->mColorBuffers.derefActiveBuffer();					// finished with current active buffer
 		uint8_t *destPixels = kinectObj->mColorBuffers.getNewBuffer();	// request a new buffer
-		memcpy( destPixels, rgb, 640 * 480 * 3 * sizeof(uint8_t) );		// blast the pixels in
+		if( kinectObj->mVideoInfrared )
+			memcpy( destPixels, rgb, 640 * 480 * sizeof(uint8_t) );		// blast the pixels in
+		else
+			memcpy( destPixels, rgb, 640 * 480 * 3 * sizeof(uint8_t) );		// blast the pixels in
 		kinectObj->mColorBuffers.setActiveBuffer( destPixels );			// set this new buffer to be the current active buffer
-		kinectObj->mNewColorFrame = true;								// flag that there's a new color frame
+		kinectObj->mNewVideoFrame = true;								// flag that there's a new color frame
+		kinectObj->mLastVideoFrameInfrared = kinectObj->mVideoInfrared;
 	}
 }
 
-void Kinect::depthImageCB( freenect_device *dev, freenect_depth *depth, uint32_t timestamp )
+void Kinect::depthImageCB( freenect_device *dev, void *d, uint32_t timestamp )
 {
 	Kinect::Obj *kinectObj = reinterpret_cast<Kinect::Obj*>( freenect_get_user( dev ) );
 	{
 		lock_guard<recursive_mutex> lock( kinectObj->mMutex );
+
+		uint16_t *depth = reinterpret_cast<uint16_t*>( d );
 
 		kinectObj->mDepthBuffers.derefActiveBuffer();					// finished with current active buffer
 		uint16_t *destPixels = kinectObj->mDepthBuffers.getNewBuffer(); // request a new buffer
@@ -175,7 +213,7 @@ void Kinect::depthImageCB( freenect_device *dev, freenect_depth *depth, uint32_t
 void Kinect::threadedFunc( Kinect::Obj *kinectObj )
 {
 	freenect_start_depth( kinectObj->mDevice );
-	freenect_start_rgb( kinectObj->mDevice );
+	freenect_start_video( kinectObj->mDevice );
 
 	while( ( ! kinectObj->mShouldDie ) && ( freenect_process_events( getContext() ) >= 0 ) )
 		;
@@ -207,8 +245,8 @@ int	Kinect::getNumDevices()
 bool Kinect::checkNewColorFrame()
 {
 	lock_guard<recursive_mutex> lock( mObj->mMutex );
-	bool oldValue = mObj->mNewColorFrame;
-	mObj->mNewColorFrame = false;
+	bool oldValue = mObj->mNewVideoFrame;
+	mObj->mNewVideoFrame = false;
 	return oldValue;
 }
 
@@ -240,15 +278,19 @@ void Kinect::setLedColor( LedColor ledColorCode )
 Vec3f Kinect::getAccel() const
 {
 	Vec3d raw;
-	freenect_get_mks_accel( mObj->mDevice, &raw.x, &raw.y, &raw.z );
+	freenect_raw_tilt_state *tiltState = freenect_get_tilt_state( mObj->mDevice );
+	freenect_get_mks_accel( tiltState, &raw.x, &raw.y, &raw.z );
 	return Vec3f( raw );
 }
 
-ImageSourceRef Kinect::getColorImage()
+ImageSourceRef Kinect::getVideoImage()
 {
 	// register a reference to the active buffer
 	uint8_t *activeColor = mObj->mColorBuffers.refActiveBuffer();
-	return ImageSourceRef( new ImageSourceKinectColor( activeColor, this->mObj ) );
+	if( mObj->mLastVideoFrameInfrared )
+		return ImageSourceRef( new ImageSourceKinectInfrared( activeColor, this->mObj ) );
+	else
+		return ImageSourceRef( new ImageSourceKinectColor( activeColor, this->mObj ) );
 }
 
 ImageSourceRef Kinect::getDepthImage()
@@ -258,7 +300,7 @@ ImageSourceRef Kinect::getDepthImage()
 	return ImageSourceRef( new ImageSourceKinectDepth( activeDepth, this->mObj ) );
 }
 
-std::shared_ptr<uint8_t> Kinect::getColorData()
+std::shared_ptr<uint8_t> Kinect::getVideoData()
 {
 	// register a reference to the active buffer
 	uint8_t *activeColor = mObj->mColorBuffers.refActiveBuffer();
@@ -270,6 +312,23 @@ std::shared_ptr<uint16_t> Kinect::getDepthData()
 	// register a reference to the active buffer
 	uint16_t *activeDepth = mObj->mDepthBuffers.refActiveBuffer();
 	return shared_ptr<uint16_t>( activeDepth, KinectDataDeleter<uint16_t>( &mObj->mDepthBuffers, mObj ) );	
+}
+
+void Kinect::setVideoInfrared( bool infrared )
+{
+	if( mObj->mVideoInfrared != infrared ) {
+		freenect_stop_video( mObj->mDevice );
+		{
+			lock_guard<recursive_mutex> lock( mObj->mMutex );
+		
+			mObj->mVideoInfrared = infrared;
+			if( mObj->mVideoInfrared )
+				freenect_set_video_format( mObj->mDevice, FREENECT_VIDEO_IR_8BIT );
+			else
+				freenect_set_video_format( mObj->mDevice, FREENECT_VIDEO_RGB );
+		}
+		freenect_start_video( mObj->mDevice );
+	}
 }
 
 // Buffer management

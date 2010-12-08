@@ -39,13 +39,17 @@ void kinectBasicApp::setup()
 
 void kinectBasicApp::mouseUp( MouseEvent event )
 {
-	writeImage( getHomeDirectory() + "kinect_color.png", mKinect.getColorImage() );
+	writeImage( getHomeDirectory() + "kinect_video.png", mKinect.getVideoImage() );
 	writeImage( getHomeDirectory() + "kinect_depth.png", mKinect.getDepthImage() );
 	
 	// set tilt to random angle
-	mKinect.setTilt( Rand::randFloat() * 62 - 31 );
+//	mKinect.setTilt( Rand::randFloat() * 62 - 31 );
 
+	// make the LED yellow
 	mKinect.setLedColor( Kinect::LED_YELLOW );
+	
+	// toggle infrared video
+	mKinect.setVideoInfrared( ! mKinect.isVideoInfrared() );
 }
 
 void kinectBasicApp::update()
@@ -54,9 +58,9 @@ void kinectBasicApp::update()
 		mDepthTexture = mKinect.getDepthImage();
 	
 	if( mKinect.checkNewColorFrame() )
-		mColorTexture = mKinect.getColorImage();
+		mColorTexture = mKinect.getVideoImage();
 	
-//	console() << "Accel: " << kinect.getAccel() << std::endl;
+	console() << "Accel: " << mKinect.getAccel() << std::endl;
 }
 
 void kinectBasicApp::draw()

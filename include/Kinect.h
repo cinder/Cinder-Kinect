@@ -89,11 +89,16 @@ class Kinect {
 	//! Returns the current accelerometer data, measured as meters/second<sup>2</sup>.
 	Vec3f		getAccel() const;
 	
-	ImageSourceRef			getColorImage();
+	ImageSourceRef			getVideoImage();
 	ImageSourceRef			getDepthImage();
 
-	std::shared_ptr<uint8_t>	getColorData();
+	std::shared_ptr<uint8_t>	getVideoData();
 	std::shared_ptr<uint16_t>	getDepthData();
+
+	//! Sets the video image returned by getVideoImage() and getVideoData() to be infrared when \a infrared is true, color when it's false (the default)
+	void		setVideoInfrared( bool infrared = true );
+	//! Returns whether the video image returned by getVideoImage() and getVideoData() is infrared when \c true, or color when it's \c false (the default)
+	bool		isVideoInfrared() const { return mObj->mVideoInfrared; }
 
 	//! Returns the number of Kinect devices attached to the system
 	static int	getNumDevices();
@@ -111,8 +116,8 @@ class Kinect {
 	};
 	
   protected:
-	static void			depthImageCB( freenect_device *dev, freenect_depth *depth, uint32_t timestamp );
-	static void			colorImageCB( freenect_device *dev, freenect_pixel *rgb, uint32_t timestamp );
+	static void		depthImageCB( freenect_device *dev, void *depth, uint32_t timestamp );
+	static void		colorImageCB( freenect_device *dev, void *rgb, uint32_t timestamp );
 
 	static freenect_context*	getContext();
 
@@ -148,12 +153,15 @@ class Kinect {
 		BufferManager<uint16_t>			mDepthBuffers;
 		
 		volatile bool					mShouldDie;
-		volatile bool					mNewColorFrame, mNewDepthFrame;
+		volatile bool					mVideoInfrared;
+		volatile bool					mNewVideoFrame, mNewDepthFrame;
+		volatile bool					mLastVideoFrameInfrared;
 		float							mTilt;
 	};
 
 	friend class ImageSourceKinectColor;
 	friend class ImageSourceKinectDepth;
+	friend class ImageSourceKinectInfrared;
 
 	static void			threadedFunc( struct Kinect::Obj *arg );
 	
