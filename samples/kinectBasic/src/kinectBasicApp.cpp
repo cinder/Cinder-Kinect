@@ -46,7 +46,7 @@ void kinectBasicApp::mouseUp( MouseEvent event )
 //	mKinect.setTilt( Rand::randFloat() * 62 - 31 );
 
 	// make the LED yellow
-	mKinect.setLedColor( Kinect::LED_YELLOW );
+//	mKinect.setLedColor( Kinect::LED_YELLOW );
 	
 	// toggle infrared video
 	mKinect.setVideoInfrared( ! mKinect.isVideoInfrared() );
@@ -60,7 +60,7 @@ void kinectBasicApp::update()
 	if( mKinect.checkNewColorFrame() )
 		mColorTexture = mKinect.getVideoImage();
 	
-	console() << "Accel: " << mKinect.getAccel() << std::endl;
+//	console() << "Accel: " << mKinect.getAccel() << std::endl;
 }
 
 void kinectBasicApp::draw()

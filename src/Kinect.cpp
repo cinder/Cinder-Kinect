@@ -154,8 +154,8 @@ Kinect::Obj::Obj( int deviceIndex )
 		throw ExcFailedOpenDevice();
 
 	freenect_set_user( mDevice, this );
-	freenect_raw_tilt_state *tiltState = freenect_get_tilt_state( mDevice );
-	mTilt = freenect_get_tilt_degs( tiltState );
+	freenect_update_tilt_state( mDevice );
+	mTilt = freenect_get_tilt_degs( freenect_get_tilt_state( mDevice ) );
 	freenect_set_led( mDevice, ::LED_GREEN );
 	freenect_set_depth_callback( mDevice, depthImageCB );
 	freenect_set_video_callback( mDevice, colorImageCB );
@@ -228,6 +228,7 @@ freenect_context* Kinect::getContext()
 	if( ! sContext ) {
 		if( freenect_init( &sContext, NULL ) < 0 );
 			; // throw ExcFailedFreenectInit(); // this seems to always fail
+		freenect_set_log_level( sContext, FREENECT_LOG_ERROR );
 	}
 	return sContext;
 }
@@ -278,8 +279,8 @@ void Kinect::setLedColor( LedColor ledColorCode )
 Vec3f Kinect::getAccel() const
 {
 	Vec3d raw;
-	freenect_raw_tilt_state *tiltState = freenect_get_tilt_state( mObj->mDevice );
-	freenect_get_mks_accel( tiltState, &raw.x, &raw.y, &raw.z );
+	freenect_update_tilt_state( mObj->mDevice );
+	freenect_get_mks_accel( freenect_get_tilt_state( mObj->mDevice ), &raw.x, &raw.y, &raw.z );
 	return Vec3f( raw );
 }
 
