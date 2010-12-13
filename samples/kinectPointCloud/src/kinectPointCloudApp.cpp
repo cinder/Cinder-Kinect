@@ -120,8 +120,8 @@ void kinectPointCloudApp::update()
 		mDepthTexture = mKinect.getDepthImage();
 	
 	// This sample does not use the color data
-	//if( mKinect.checkNewColorFrame() )
-	//	mColorTexture = mKinect.getColorImage();
+	//if( mKinect.checkNewVideoFrame() )
+	//	mColorTexture = mKinect.getVideoImage();
 
 	if( mKinectTilt != mKinect.getTilt() )
 		mKinect.setTilt( mKinectTilt );

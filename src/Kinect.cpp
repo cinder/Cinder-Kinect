@@ -243,7 +243,7 @@ int	Kinect::getNumDevices()
 	}
 }
 
-bool Kinect::checkNewColorFrame()
+bool Kinect::checkNewVideoFrame()
 {
 	lock_guard<recursive_mutex> lock( mObj->mMutex );
 	bool oldValue = mObj->mNewVideoFrame;

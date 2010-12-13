@@ -61,8 +61,8 @@ class Kinect {
 	//! Creates a new Kinect based on Device # \a device. 0 is the typical value for \a deviceIndex.
 	Kinect( Device device );
 	
-	//! Returns whether there is a new color frame available since the last call to checkNewColorFrame(). Call getColorImage() to retrieve it.
-	bool		checkNewColorFrame();
+	//! Returns whether there is a new video frame available since the last call to checkNewVideoFrame(). Call getVideoImage() to retrieve it.
+	bool		checkNewVideoFrame();
 	//! Returns whether there is a new depth frame available since the last call to checkNewDepthFrame(). Call getDepthImage() to retrieve it.
 	bool		checkNewDepthFrame();
 

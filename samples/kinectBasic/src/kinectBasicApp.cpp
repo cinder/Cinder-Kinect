@@ -57,7 +57,7 @@ void kinectBasicApp::update()
 	if( mKinect.checkNewDepthFrame() )
 		mDepthTexture = mKinect.getDepthImage();
 	
-	if( mKinect.checkNewColorFrame() )
+	if( mKinect.checkNewVideoFrame() )
 		mColorTexture = mKinect.getVideoImage();
 	
 //	console() << "Accel: " << mKinect.getAccel() << std::endl;
