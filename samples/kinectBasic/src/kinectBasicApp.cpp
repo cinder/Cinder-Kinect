@@ -34,13 +34,13 @@ void kinectBasicApp::setup()
 {
 	console() << "There are " << Kinect::getNumDevices() << " Kinects connected." << std::endl;
 
-	mKinect = Kinect( Kinect::Device() ); // the default Device implies the first Kinect connected
+	mKinect = Kinect( Kinect::Device(0, true) ); // the default Device implies the first Kinect connected
 }
 
 void kinectBasicApp::mouseUp( MouseEvent event )
 {
-	writeImage( getHomeDirectory() + "kinect_video.png", mKinect.getVideoImage() );
-	writeImage( getHomeDirectory() + "kinect_depth.png", mKinect.getDepthImage() );
+	//writeImage( getHomeDirectory() + "kinect_video.png", mKinect.getVideoImage() );
+	//writeImage( getHomeDirectory() + "kinect_depth.png", mKinect.getDepthImage() );
 	
 	// set tilt to random angle
 //	mKinect.setTilt( Rand::randFloat() * 62 - 31 );

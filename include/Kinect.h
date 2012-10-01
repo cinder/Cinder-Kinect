@@ -49,7 +49,7 @@ class Kinect {
   public:
 	//! Represents the identifier for a particular Kinect
 	struct Device {
-		Device( int index = 0 )
+		Device( int index = 0, bool registerDepth = true )
 			: mIndex( index )
 		{}
 		
@@ -100,6 +100,11 @@ class Kinect {
 	//! Returns whether the video image returned by getVideoImage() and getVideoData() is infrared when \c true, or color when it's \c false (the default)
 	bool		isVideoInfrared() const { return mObj->mVideoInfrared; }
 
+	//! Sets whether the depth should be registered to the color image, by default it's true, however, if the setDepthRegistered() method is not called, then the depth is not registered to the RGB image
+	//void		setDepthRegistered( bool registerDepth = true );
+	//bool		isDepthRegistered() const { return mObj->mVideoInfrared; }
+
+
 	//! Returns the number of Kinect devices attached to the system
 	static int	getNumDevices();
 
@@ -122,7 +127,7 @@ class Kinect {
 	static freenect_context*	getContext();
 
 	struct Obj {
-		Obj( int deviceIndex );
+		Obj( int deviceIndex, bool depthRegister = false);
 		~Obj();
 		
 		template<typename T>
