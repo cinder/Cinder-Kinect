@@ -142,11 +142,11 @@ class KinectDataDeleter {
 };
 
 Kinect::Kinect( Device device )
-	: mObj( new Obj( device.mIndex ) )
+	: mObj( new Obj( device.mIndex, device.mDepthRegister ) )
 {
 }
 
-Kinect::Obj::Obj( int deviceIndex )
+Kinect::Obj::Obj( int deviceIndex, bool depthRegister )
 	: mShouldDie( false ), mNewVideoFrame( false ), mNewDepthFrame( false ), 
 		mColorBuffers( 640 * 480 * 3, this ), mDepthBuffers( 640 * 480, this ), mVideoInfrared( false )
 {
@@ -159,8 +159,13 @@ Kinect::Obj::Obj( int deviceIndex )
 	freenect_set_led( mDevice, ::LED_GREEN );
 	freenect_set_depth_callback( mDevice, depthImageCB );
 	freenect_set_video_callback( mDevice, colorImageCB );
-	freenect_set_video_format( mDevice, FREENECT_VIDEO_RGB );
-	freenect_set_depth_format( mDevice, FREENECT_DEPTH_11BIT );
+	freenect_set_video_mode( mDevice, freenect_find_video_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_VIDEO_RGB) );
+
+	if(depthRegister) {
+		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_11BIT));
+	} else {
+		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_REGISTERED));
+	}
 
 	mLastVideoFrameInfrared = mVideoInfrared;
 	
@@ -324,9 +329,9 @@ void Kinect::setVideoInfrared( bool infrared )
 		
 			mObj->mVideoInfrared = infrared;
 			if( mObj->mVideoInfrared )
-				freenect_set_video_format( mObj->mDevice, FREENECT_VIDEO_IR_8BIT );
+				freenect_set_video_mode( mObj->mDevice, freenect_find_video_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_VIDEO_IR_8BIT) );
 			else
-				freenect_set_video_format( mObj->mDevice, FREENECT_VIDEO_RGB );
+				freenect_set_video_mode( mObj->mDevice, freenect_find_video_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_VIDEO_RGB) );
 		}
 		freenect_start_video( mObj->mDevice );
 	}

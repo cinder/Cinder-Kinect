@@ -21,6 +21,15 @@
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		53E3CDFC0E86099300238D2B /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3CDFB0E86099300238D2B /* Carbon.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		ED2511531619EEE000F07719 /* APACHE20 in Resources */ = {isa = PBXBuildFile; fileRef = ED25113E1619EEE000F07719 /* APACHE20 */; };
+		ED2511541619EEE000F07719 /* cameras.c in Sources */ = {isa = PBXBuildFile; fileRef = ED25113F1619EEE000F07719 /* cameras.c */; };
+		ED2511551619EEE000F07719 /* CONTRIB in Resources */ = {isa = PBXBuildFile; fileRef = ED2511411619EEE000F07719 /* CONTRIB */; };
+		ED2511561619EEE000F07719 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = ED2511421619EEE000F07719 /* core.c */; };
+		ED2511571619EEE000F07719 /* GPL2 in Resources */ = {isa = PBXBuildFile; fileRef = ED2511441619EEE000F07719 /* GPL2 */; };
+		ED25115A1619EEE000F07719 /* libfreenect.pc.in in Resources */ = {isa = PBXBuildFile; fileRef = ED25114C1619EEE000F07719 /* libfreenect.pc.in */; };
+		ED25115B1619EEE000F07719 /* registration.c in Sources */ = {isa = PBXBuildFile; fileRef = ED25114E1619EEE000F07719 /* registration.c */; };
+		ED25115C1619EEE000F07719 /* tilt.c in Sources */ = {isa = PBXBuildFile; fileRef = ED2511501619EEE000F07719 /* tilt.c */; };
+		ED25115D1619EEE000F07719 /* usb_libusb10.c in Sources */ = {isa = PBXBuildFile; fileRef = ED2511511619EEE000F07719 /* usb_libusb10.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +53,24 @@
 		53E3CDFB0E86099300238D2B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* kinectBasic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kinectBasic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED25113E1619EEE000F07719 /* APACHE20 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = APACHE20; sourceTree = "<group>"; };
+		ED25113F1619EEE000F07719 /* cameras.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cameras.c; sourceTree = "<group>"; };
+		ED2511401619EEE000F07719 /* cameras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cameras.h; sourceTree = "<group>"; };
+		ED2511411619EEE000F07719 /* CONTRIB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CONTRIB; sourceTree = "<group>"; };
+		ED2511421619EEE000F07719 /* core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
+		ED2511431619EEE000F07719 /* freenect_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = freenect_internal.h; sourceTree = "<group>"; };
+		ED2511441619EEE000F07719 /* GPL2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GPL2; sourceTree = "<group>"; };
+		ED2511491619EEE000F07719 /* libfreenect-registration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "libfreenect-registration.h"; sourceTree = "<group>"; };
+		ED25114A1619EEE000F07719 /* libfreenect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libfreenect.h; sourceTree = "<group>"; };
+		ED25114B1619EEE000F07719 /* libfreenect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = libfreenect.hpp; sourceTree = "<group>"; };
+		ED25114C1619EEE000F07719 /* libfreenect.pc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libfreenect.pc.in; sourceTree = "<group>"; };
+		ED25114D1619EEE000F07719 /* loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loader.h; sourceTree = "<group>"; };
+		ED25114E1619EEE000F07719 /* registration.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = registration.c; sourceTree = "<group>"; };
+		ED25114F1619EEE000F07719 /* registration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = registration.h; sourceTree = "<group>"; };
+		ED2511501619EEE000F07719 /* tilt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tilt.c; sourceTree = "<group>"; };
+		ED2511511619EEE000F07719 /* usb_libusb10.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = usb_libusb10.c; sourceTree = "<group>"; };
+		ED2511521619EEE000F07719 /* usb_libusb10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usb_libusb10.h; sourceTree = "<group>"; };
+		ED5C9643167E64A5007A1C3F /* Kinect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Kinect.h; path = ../../../include/Kinect.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +98,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				ED25113D1619EEE000F07719 /* freenect */,
 				00312AD41298780D009DC098 /* Kinect.cpp */,
 				00BAE6590E7ED9C10018A608 /* kinectBasicApp.cpp */,
 			);
@@ -128,6 +156,7 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				ED5C9643167E64A5007A1C3F /* Kinect.h */,
 				32CA4F630368D1EE00C91783 /* kinectBasic_Prefix.pch */,
 			);
 			name = Headers;
@@ -149,6 +178,31 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ED25113D1619EEE000F07719 /* freenect */ = {
+			isa = PBXGroup;
+			children = (
+				ED25113E1619EEE000F07719 /* APACHE20 */,
+				ED25113F1619EEE000F07719 /* cameras.c */,
+				ED2511401619EEE000F07719 /* cameras.h */,
+				ED2511411619EEE000F07719 /* CONTRIB */,
+				ED2511421619EEE000F07719 /* core.c */,
+				ED2511431619EEE000F07719 /* freenect_internal.h */,
+				ED2511441619EEE000F07719 /* GPL2 */,
+				ED2511491619EEE000F07719 /* libfreenect-registration.h */,
+				ED25114A1619EEE000F07719 /* libfreenect.h */,
+				ED25114B1619EEE000F07719 /* libfreenect.hpp */,
+				ED25114C1619EEE000F07719 /* libfreenect.pc.in */,
+				ED25114D1619EEE000F07719 /* loader.h */,
+				ED25114E1619EEE000F07719 /* registration.c */,
+				ED25114F1619EEE000F07719 /* registration.h */,
+				ED2511501619EEE000F07719 /* tilt.c */,
+				ED2511511619EEE000F07719 /* usb_libusb10.c */,
+				ED2511521619EEE000F07719 /* usb_libusb10.h */,
+			);
+			name = freenect;
+			path = ../../../src/freenect;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +256,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				00CCAF15116A9FEE008396D5 /* CinderApp.icns in Resources */,
+				ED2511531619EEE000F07719 /* APACHE20 in Resources */,
+				ED2511551619EEE000F07719 /* CONTRIB in Resources */,
+				ED2511571619EEE000F07719 /* GPL2 in Resources */,
+				ED25115A1619EEE000F07719 /* libfreenect.pc.in in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +272,11 @@
 			files = (
 				00BAE65A0E7ED9C10018A608 /* kinectBasicApp.cpp in Sources */,
 				00312AD51298780D009DC098 /* Kinect.cpp in Sources */,
+				ED2511541619EEE000F07719 /* cameras.c in Sources */,
+				ED2511561619EEE000F07719 /* core.c in Sources */,
+				ED25115B1619EEE000F07719 /* registration.c in Sources */,
+				ED25115C1619EEE000F07719 /* tilt.c in Sources */,
+				ED25115D1619EEE000F07719 /* usb_libusb10.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +286,8 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -232,14 +297,24 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = kinectBasic_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/boost\"",
+					../../../include,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../src/freenect/lib/vs2010\"",
+				);
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
-					"\"../../../lib/macosx/libfreenect.a\"",
 					"\"../../../lib/macosx/libusb-1.0.a\"",
 				);
 				PRODUCT_NAME = kinectBasic;
+				SDKROOT = macosx10.7;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"$(CINDER_PATH)/Cinder-Kinect/src/freenect\"";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -247,6 +322,8 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_FAST_MATH = YES;
@@ -257,15 +334,25 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = kinectBasic_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/boost\"",
+					../../../include,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../src/freenect/lib/vs2010\"",
+				);
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder.a\"",
-					"\"../../../lib/macosx/libfreenect.a\"",
 					"\"../../../lib/macosx/libusb-1.0.a\"",
 				);
 				PRODUCT_NAME = kinectBasic;
+				SDKROOT = macosx10.7;
 				STRIP_INSTALLED_PRODUCT = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"$(CINDER_PATH)/Cinder-Kinect/src/freenect\"";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -274,7 +361,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				CINDER_PATH = ../../../../..;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -282,7 +370,7 @@
 					"\"$(CINDER_PATH)/boost\"",
 					../../../include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
@@ -293,7 +381,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				CINDER_PATH = ../../../../..;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -301,7 +390,7 @@
 					"\"$(CINDER_PATH)/boost\"",
 					../../../include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
