@@ -34,7 +34,11 @@ void kinectBasicApp::setup()
 {
 	console() << "There are " << Kinect::getNumDevices() << " Kinects connected." << std::endl;
 
-	mKinect = Kinect( Kinect::Device(0, true) ); // the default Device implies the first Kinect connected
+    Kinect::FreenectParams params;
+    params.mDepthRegister = true;
+    params.mDeviceIndex = 0;
+    
+	mKinect = Kinect( Kinect::Device(params) ); // the default Device implies the first Kinect connected
 }
 
 void kinectBasicApp::mouseUp( MouseEvent event )

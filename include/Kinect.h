@@ -47,13 +47,28 @@ namespace cinder {
 
 class Kinect {
   public:
+    
+    // initialization parameters
+    struct FreenectParams {
+        
+        FreenectParams() {
+            mDeviceIndex = 0;
+            mDepthRegister = false;
+        }
+        
+        int mDeviceIndex;
+        bool mDepthRegister;
+    };
+    
 	//! Represents the identifier for a particular Kinect
 	struct Device {
-		Device( int index = 0, bool registerDepth = true )
-			: mIndex( index )
+		Device( FreenectParams params )
+			: mIndex( params.deviceIndex ),
+              mDepthRegister ( params.depthRegister )
 		{}
 		
 		int		mIndex;
+        bool    mDepthRegister;
 	};
   
 	//! Default constructor - creates an uninitialized instance
@@ -127,7 +142,7 @@ class Kinect {
 	static freenect_context*	getContext();
 
 	struct Obj {
-		Obj( int deviceIndex, bool depthRegister = false);
+		Obj( int deviceIndex, bool depthRegister );
 		~Obj();
 		
 		template<typename T>

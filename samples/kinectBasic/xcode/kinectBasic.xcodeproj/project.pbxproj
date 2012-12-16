@@ -70,6 +70,7 @@
 		ED2511501619EEE000F07719 /* tilt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tilt.c; sourceTree = "<group>"; };
 		ED2511511619EEE000F07719 /* usb_libusb10.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = usb_libusb10.c; sourceTree = "<group>"; };
 		ED2511521619EEE000F07719 /* usb_libusb10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usb_libusb10.h; sourceTree = "<group>"; };
+		ED5C9643167E64A5007A1C3F /* Kinect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Kinect.h; path = ../../../include/Kinect.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +156,7 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				ED5C9643167E64A5007A1C3F /* Kinect.h */,
 				32CA4F630368D1EE00C91783 /* kinectBasic_Prefix.pch */,
 			);
 			name = Headers;
@@ -311,7 +313,7 @@
 					"\"../../../lib/macosx/libusb-1.0.a\"",
 				);
 				PRODUCT_NAME = kinectBasic;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx10.7;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"$(CINDER_PATH)/Cinder-Kinect/src/freenect\"";
 				WRAPPER_EXTENSION = app;
 			};
@@ -348,7 +350,7 @@
 					"\"../../../lib/macosx/libusb-1.0.a\"",
 				);
 				PRODUCT_NAME = kinectBasic;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx10.7;
 				STRIP_INSTALLED_PRODUCT = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"$(CINDER_PATH)/Cinder-Kinect/src/freenect\"";
 				WRAPPER_EXTENSION = app;

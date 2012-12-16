@@ -142,7 +142,7 @@ class KinectDataDeleter {
 };
 
 Kinect::Kinect( Device device )
-	: mObj( new Obj( device.mIndex ) )
+	: mObj( new Obj( device.mIndex, device.mDepthRegister ) )
 {
 }
 
@@ -161,10 +161,10 @@ Kinect::Obj::Obj( int deviceIndex, bool depthRegister )
 	freenect_set_video_callback( mDevice, colorImageCB );
 	freenect_set_video_mode( mDevice, freenect_find_video_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_VIDEO_RGB) );
 
-	if(!depthRegister) {
-		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_REGISTERED));
-	} else {
+	if(depthRegister) {
 		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_11BIT));
+	} else {
+		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_REGISTERED));
 	}
 
 	mLastVideoFrameInfrared = mVideoInfrared;
