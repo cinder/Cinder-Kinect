@@ -115,7 +115,6 @@ class Kinect {
 	class ExcFailedOpenDevice : public Exc {
 	};
 	
-  protected:
 	static void		depthImageCB( freenect_device *dev, void *depth, uint32_t timestamp );
 	static void		colorImageCB( freenect_device *dev, void *rgb, uint32_t timestamp );
 

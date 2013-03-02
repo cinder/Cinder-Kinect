@@ -39,8 +39,8 @@ void kinectBasicApp::setup()
 
 void kinectBasicApp::mouseUp( MouseEvent event )
 {
-	writeImage( getHomeDirectory() + "kinect_video.png", mKinect.getVideoImage() );
-	writeImage( getHomeDirectory() + "kinect_depth.png", mKinect.getDepthImage() );
+	writeImage( getHomeDirectory() / "kinect_video.png", mKinect.getVideoImage() );
+	writeImage( getHomeDirectory() / "kinect_depth.png", mKinect.getDepthImage() );
 	
 	// set tilt to random angle
 //	mKinect.setTilt( Rand::randFloat() * 62 - 31 );
