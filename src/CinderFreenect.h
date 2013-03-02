@@ -62,7 +62,7 @@ class Kinect {
     
 	//! Represents the identifier for a particular Kinect
 	struct Device {
-		Device( FreenectParams params )
+		Device( FreenectParams params = FreenectParams() )
 			: mIndex( params.mDeviceIndex ),
               mDepthRegister ( params.mDepthRegister )
 		{}

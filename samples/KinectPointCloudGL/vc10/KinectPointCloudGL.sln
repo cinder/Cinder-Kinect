@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KinectPointCloudGL", "KinectPointCloudGL.vcxproj", "{78998433-C0BE-4829-8343-1D1F10120CEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78998433-C0BE-4829-8343-1D1F10120CEA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78998433-C0BE-4829-8343-1D1F10120CEA}.Debug|Win32.Build.0 = Debug|Win32
+		{78998433-C0BE-4829-8343-1D1F10120CEA}.Release|Win32.ActiveCfg = Release|Win32
+		{78998433-C0BE-4829-8343-1D1F10120CEA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

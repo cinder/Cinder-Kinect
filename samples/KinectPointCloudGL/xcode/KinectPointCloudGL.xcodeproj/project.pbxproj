@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0091D8F80E81B9330029341E /* OpenGL.framework */; };
+		00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784AF0FF439BC000DE1D7 /* Accelerate.framework */; };
+		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
+		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
+		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
+		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		92F482854E3048E7A35461D5 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0ED3D7806D4D89AF86B960 /* IOKit.framework */; };
+		A093E9EE8449438C80A1DC33 /* usb_libusb10.c in Sources */ = {isa = PBXBuildFile; fileRef = CDAB65097DEC4EB19E00E1FC /* usb_libusb10.c */; };
+		A7F8782DF0FD40E890AAD7DF /* tilt.c in Sources */ = {isa = PBXBuildFile; fileRef = EBA7933F9FC64835B474AFCE /* tilt.c */; };
+		65A06F58258748B3B3F1CD5B /* registration.c in Sources */ = {isa = PBXBuildFile; fileRef = 49F520EDBCFA46EA86DE9119 /* registration.c */; };
+		8B3B2C4E05A94A178BCEEEB4 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = 935234A0490644D3B50713EE /* core.c */; };
+		6266D8ABBA44456D8527144E /* cameras.c in Sources */ = {isa = PBXBuildFile; fileRef = 37EA56B604BF41489C6CB511 /* cameras.c */; };
+		B03D0D3E38A947A086CD31F5 /* CinderFreenect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9463158380345A2B9F32475 /* CinderFreenect.cpp */; };
+		F11DB686277544CDB2DBF5D0 /* CinderFreenect.h in Headers */ = {isa = PBXBuildFile; fileRef = A4A1E3AEEF354A139CF33F7C /* CinderFreenect.h */; };
+		DA035B73E33A427E91F62272 /* KinectPointCloudGL_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 105855601A114F2BBD0C63DE /* KinectPointCloudGL_Prefix.pch */; };
+		2EAC3FFD9F1D436081271909 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = EC162A1EACCD4FF988DDF1EC /* CinderApp.icns */; };
+		CB115A50BDDC4047B2B189C3 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = DB9304F8E0E6489C81EAB61B /* Resources.h */; };
+		B4D460DDBCC442FFA834CBF2 /* KinectPointCloudGLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B0EEF5FA9094BAEA4882302 /* KinectPointCloudGLApp.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0091D8F80E81B9330029341E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		00B784AF0FF439BC000DE1D7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
+		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		8D1107320486CEB800E47090 /* KinectPointCloudGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KinectPointCloudGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B0EEF5FA9094BAEA4882302 /* KinectPointCloudGLApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/KinectPointCloudGLApp.cpp; sourceTree = "<group>"; name = KinectPointCloudGLApp.cpp; };
+		DB9304F8E0E6489C81EAB61B /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
+		EC162A1EACCD4FF988DDF1EC /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
+		0E158B62925B4829A3AE54F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
+		105855601A114F2BBD0C63DE /* KinectPointCloudGL_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = KinectPointCloudGL_Prefix.pch; sourceTree = "<group>"; name = KinectPointCloudGL_Prefix.pch; };
+		A4A1E3AEEF354A139CF33F7C /* CinderFreenect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../src/CinderFreenect.h; sourceTree = "<group>"; name = CinderFreenect.h; };
+		C9463158380345A2B9F32475 /* CinderFreenect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/CinderFreenect.cpp; sourceTree = "<group>"; name = CinderFreenect.cpp; };
+		37EA56B604BF41489C6CB511 /* cameras.c */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../../../src/freenect/cameras.c; sourceTree = "<group>"; name = cameras.c; };
+		935234A0490644D3B50713EE /* core.c */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../../../src/freenect/core.c; sourceTree = "<group>"; name = core.c; };
+		49F520EDBCFA46EA86DE9119 /* registration.c */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../../../src/freenect/registration.c; sourceTree = "<group>"; name = registration.c; };
+		EBA7933F9FC64835B474AFCE /* tilt.c */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../../../src/freenect/tilt.c; sourceTree = "<group>"; name = tilt.c; };
+		CDAB65097DEC4EB19E00E1FC /* usb_libusb10.c */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../../../src/freenect/usb_libusb10.c; sourceTree = "<group>"; name = usb_libusb10.c; };
+		0C0ED3D7806D4D89AF86B960 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; name = IOKit.framework; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
+				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
+				5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */,
+				00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */,
+				00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */,
+				00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */,
+				00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */,
+				92F482854E3048E7A35461D5 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				7B0EEF5FA9094BAEA4882302 /* KinectPointCloudGLApp.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				00B784AF0FF439BC000DE1D7 /* Accelerate.framework */,
+				00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */,
+				00B784B10FF439BC000DE1D7 /* AudioUnit.framework */,
+				00B784B20FF439BC000DE1D7 /* CoreAudio.framework */,
+				5323E6B50EAFCA7E003A9687 /* QTKit.framework */,
+				5323E6B10EAFCA74003A9687 /* CoreVideo.framework */,
+				0091D8F80E81B9330029341E /* OpenGL.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* KinectPointCloudGL.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* KinectPointCloudGL */ = {
+			isa = PBXGroup;
+			children = (
+				01B97315FEAEA392516A2CEA /* Blocks */,
+				29B97315FDCFA39411CA2CEA /* Headers */,
+				080E96DDFE201D6D7F000001 /* Source */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = KinectPointCloudGL;
+			sourceTree = "<group>";
+		};
+		3C424BD2B43441E187D9C058 /* freenect */ = {
+			isa = PBXGroup;
+			children = (
+				37EA56B604BF41489C6CB511 /* cameras.c */,
+				935234A0490644D3B50713EE /* core.c */,
+				49F520EDBCFA46EA86DE9119 /* registration.c */,
+				EBA7933F9FC64835B474AFCE /* tilt.c */,
+				CDAB65097DEC4EB19E00E1FC /* usb_libusb10.c */,
+			);
+			name = freenect;
+			sourceTree = "<group>";
+		};
+		1462771C9F9246DC9678CC65 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A4A1E3AEEF354A139CF33F7C /* CinderFreenect.h */,
+				C9463158380345A2B9F32475 /* CinderFreenect.cpp */,
+				3C424BD2B43441E187D9C058 /* freenect */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		888E2D43937446949F17D127 /* Cinder-Freenect */ = {
+			isa = PBXGroup;
+			children = (
+				1462771C9F9246DC9678CC65 /* src */,
+			);
+			name = "Cinder-Freenect";
+			sourceTree = "<group>";
+		};
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				888E2D43937446949F17D127 /* Cinder-Freenect */,
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				DB9304F8E0E6489C81EAB61B /* Resources.h */,
+				105855601A114F2BBD0C63DE /* KinectPointCloudGL_Prefix.pch */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EC162A1EACCD4FF988DDF1EC /* CinderApp.icns */,
+				0E158B62925B4829A3AE54F6 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				0C0ED3D7806D4D89AF86B960 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* KinectPointCloudGL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "KinectPointCloudGL" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KinectPointCloudGL;
+			productInstallPath = "$(HOME)/Applications";
+			productName = KinectPointCloudGL;
+			productReference = 8D1107320486CEB800E47090 /* KinectPointCloudGL.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "KinectPointCloudGL" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* KinectPointCloudGL */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* KinectPointCloudGL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EAC3FFD9F1D436081271909 /* CinderApp.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4D460DDBCC442FFA834CBF2 /* KinectPointCloudGLApp.cpp in Sources */,
+				B03D0D3E38A947A086CD31F5 /* CinderFreenect.cpp in Sources */,
+				6266D8ABBA44456D8527144E /* cameras.c in Sources */,
+				8B3B2C4E05A94A178BCEEEB4 /* core.c in Sources */,
+				65A06F58258748B3B3F1CD5B /* registration.c in Sources */,
+				A7F8782DF0FD40E890AAD7DF /* tilt.c in Sources */,
+				A093E9EE8449438C80A1DC33 /* usb_libusb10.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = KinectPointCloudGL_Prefix.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
+					"\"../../../lib/macosx/libusb-1.0.a\"",
+				);
+				PRODUCT_NAME = KinectPointCloudGL;
+				WRAPPER_EXTENSION = app;
+				SYMROOT = ./build;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = KinectPointCloudGL_Prefix.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder.a\"",
+					"\"../../../lib/macosx/libusb-1.0.a\"",
+				);
+				PRODUCT_NAME = KinectPointCloudGL;
+				STRIP_INSTALLED_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+				SYMROOT = ./build;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				CINDER_PATH = "../../../../..";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/boost\"",
+					../../../src/freenect,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\" ../include",
+					../../../src,
+				);
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				CINDER_PATH = "../../../../..";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/boost\"",
+					../../../src/freenect,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\" ../include",
+					../../../src,
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "KinectPointCloudGL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "KinectPointCloudGL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
