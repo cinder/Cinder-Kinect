@@ -3,8 +3,11 @@
 <block
 	name="Cinder-Freenect"
 	id="freenect.libcinder.org"
+	git="git://github.com/cinder/Cinder-Kinect.git"
 	author="Cinder Project"
 	license="Apache 2.0, LGPL"
+	library="http://openkinect.org/"
+	summary="Wraps libfreenect for the Microsoft Kinect."
 	>
 	<supports os="macosx" />
 	<header>src/CinderFreenect.h</header>

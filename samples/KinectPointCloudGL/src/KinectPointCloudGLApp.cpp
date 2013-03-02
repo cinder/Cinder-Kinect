@@ -36,7 +36,7 @@ class PointCloudGl : public AppBasic {
 	float			mKinectTilt;
 	
 	// KINECT AND TEXTURES
-	Kinect			mKinect;
+	KinectRef		mKinect;
 	gl::Texture		mDepthTexture;
 	float			mScale;
 	float			mXOff, mYOff;
@@ -67,8 +67,7 @@ void PointCloudGl::setup()
 	mCam.setPerspective( 75.0f, getWindowAspectRatio(), 1.0f, 8000.0f );
 	
 	// SETUP KINECT AND TEXTURES
-	console() << "There are " << Kinect::getNumDevices() << " Kinects connected." << std::endl;
-	mKinect			= Kinect( Kinect::Device() ); // use the default Kinect
+	mKinect			= Kinect::create(); // use the default Kinect
 	mDepthTexture	= gl::Texture( 640, 480 );
 	
 	// SETUP VBO AND SHADER	
@@ -116,15 +115,11 @@ void PointCloudGl::createVbo()
 
 void PointCloudGl::update()
 {
-	if( mKinect.checkNewDepthFrame() )
-		mDepthTexture = mKinect.getDepthImage();
+	if( mKinect->checkNewDepthFrame() )
+		mDepthTexture = mKinect->getDepthImage();
 	
-	// This sample does not use the color data
-	//if( mKinect.checkNewVideoFrame() )
-	//	mColorTexture = mKinect.getVideoImage();
-
-	if( mKinectTilt != mKinect.getTilt() )
-		mKinect.setTilt( mKinectTilt );
+	if( mKinectTilt != mKinect->getTilt() )
+		mKinect->setTilt( mKinectTilt );
 		
 	mEye = Vec3f( 0.0f, 0.0f, mCameraDistance );
 	mCam.lookAt( mEye, mCenter, mUp );

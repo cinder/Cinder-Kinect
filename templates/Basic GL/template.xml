@@ -2,6 +2,7 @@
 <cinder>
 <template name="Kinect: Basic GL" parent="org.libcinder.apptemplates.basicopengl">
 	<requires>freenect.libcinder.org</requires>
+	<supports os="macosx" />
 	<source replaceContents="true" replaceName="true">src/_TBOX_PREFIX_App.cpp</source>
 </template>
 </cinder>

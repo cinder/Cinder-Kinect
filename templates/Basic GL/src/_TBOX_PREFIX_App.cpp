@@ -1,7 +1,6 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
-#include "cinder/Surface.h"
 
 #include "CinderFreenect.h"
 
@@ -16,7 +15,7 @@ class _TBOX_PREFIX_App : public AppBasic {
 	void update();
 	void draw();
 	
-	Kinect			mKinect;
+	KinectRef		mKinect;
 	gl::Texture		mColorTexture, mDepthTexture;	
 };
 
@@ -27,29 +26,21 @@ void _TBOX_PREFIX_App::prepareSettings( Settings* settings )
 
 void _TBOX_PREFIX_App::setup()
 {
-	console() << "There are " << Kinect::getNumDevices() << " Kinects connected." << std::endl;
-
-    Kinect::FreenectParams params;
-    params.mDepthRegister = true;
-    params.mDeviceIndex = 0;
-    
-	mKinect = Kinect( Kinect::Device(params) ); // the default Device implies the first Kinect connected
+	mKinect = Kinect::create();
 }
 
 void _TBOX_PREFIX_App::update()
 {	
-	if( mKinect.checkNewDepthFrame() )
-		mDepthTexture = mKinect.getDepthImage();
+	if( mKinect->checkNewDepthFrame() )
+		mDepthTexture = mKinect->getDepthImage();
 	
-	if( mKinect.checkNewVideoFrame() )
-		mColorTexture = mKinect.getVideoImage();
-	
-//	console() << "Accel: " << mKinect.getAccel() << std::endl;
+	if( mKinect->checkNewVideoFrame() )
+		mColorTexture = mKinect->getVideoImage();
 }
 
 void _TBOX_PREFIX_App::draw()
 {
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::clear(); 
 	gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
 	if( mDepthTexture )
 		gl::draw( mDepthTexture );
