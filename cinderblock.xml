@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+	name="Cinder-Freenect"
+	id="freenect.libcinder.org"
+	author="Cinder Project"
+	license="Apache 2.0, LGPL"
+	>
+	<supports os="macosx" />
+	<header>src/CinderFreenect.h</header>
+	<source>src/CinderFreenect.cpp</source>
+	<includePath>src</includePath>
+	<includePath system="true">src/freenect</includePath>
+	<sourcePattern>src/freenect/*.c</sourcePattern>
+	<platform os="macosx">
+		<framework sdk="true">IOKit.framework</framework>
+		<staticLibrary>lib/macosx/libusb-1.0.a</staticLibrary>
+	</platform>
+</block>
+<template>templates/Basic GL/template.xml</template>
+</cinder>
