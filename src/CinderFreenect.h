@@ -45,6 +45,8 @@ typedef uint8_t freenect_pixel;
 
 namespace cinder {
 
+typedef std::shared_ptr<class Kinect>	KinectRef;
+
 class Kinect {
   public:
     
@@ -70,12 +72,9 @@ class Kinect {
 		int		mIndex;
         bool    mDepthRegister;
 	};
+
+	static KinectRef	create( const Device &device = Device() ) { return std::shared_ptr<Kinect>( new Kinect( device ) ); }
   
-	//! Default constructor - creates an uninitialized instance
-	Kinect() {}
-	//! Creates a new Kinect based on Device # \a device. 0 is the typical value for \a deviceIndex.
-	Kinect( Device device );
-	
 	//! Returns whether there is a new video frame available since the last call to checkNewVideoFrame(). Call getVideoImage() to retrieve it.
 	bool		checkNewVideoFrame();
 	//! Returns whether there is a new depth frame available since the last call to checkNewDepthFrame(). Call getDepthImage() to retrieve it.
@@ -177,6 +176,10 @@ class Kinect {
 		volatile bool					mLastVideoFrameInfrared;
 		float							mTilt;
 	};
+
+  protected:
+	//! Creates a new Kinect based on Device # \a device. 0 is the typical value for \a deviceIndex.
+	Kinect( Device device );
 
 	friend class ImageSourceKinectColor;
 	friend class ImageSourceKinectDepth;

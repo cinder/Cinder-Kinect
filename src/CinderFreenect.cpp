@@ -161,10 +161,11 @@ Kinect::Obj::Obj( int deviceIndex, bool depthRegister )
 	freenect_set_video_callback( mDevice, colorImageCB );
 	freenect_set_video_mode( mDevice, freenect_find_video_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_VIDEO_RGB) );
 
-	if(depthRegister) {
-		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_11BIT));
-	} else {
+	if( depthRegister ) {
 		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_REGISTERED));
+	}
+	else {
+		freenect_set_depth_mode( mDevice, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_11BIT));
 	}
 
 	mLastVideoFrameInfrared = mVideoInfrared;
@@ -217,6 +218,8 @@ void Kinect::depthImageCB( freenect_device *dev, void *d, uint32_t timestamp )
 
 void Kinect::threadedFunc( Kinect::Obj *kinectObj )
 {
+	ci::ThreadSetup ts;
+
 	freenect_start_depth( kinectObj->mDevice );
 	freenect_start_video( kinectObj->mDevice );
 

@@ -21,7 +21,7 @@ class kinectBasicApp : public AppBasic {
 	void update();
 	void draw();
 	
-	Kinect			mKinect;
+	KinectRef		mKinect;
 	gl::Texture		mColorTexture, mDepthTexture;	
 };
 
@@ -34,35 +34,31 @@ void kinectBasicApp::setup()
 {
 	console() << "There are " << Kinect::getNumDevices() << " Kinects connected." << std::endl;
 
-    Kinect::FreenectParams params;
-    params.mDepthRegister = true;
-    params.mDeviceIndex = 0;
-    
-	mKinect = Kinect( Kinect::Device(params) ); // the default Device implies the first Kinect connected
+	mKinect = Kinect::create();
 }
 
 void kinectBasicApp::mouseUp( MouseEvent event )
 {
-	writeImage( getHomeDirectory() / "kinect_video.png", mKinect.getVideoImage() );
-	writeImage( getHomeDirectory() / "kinect_depth.png", mKinect.getDepthImage() );
+	writeImage( getHomeDirectory() / "kinect_video.png", mKinect->getVideoImage() );
+	writeImage( getHomeDirectory() / "kinect_depth.png", mKinect->getDepthImage() );
 	
 	// set tilt to random angle
-//	mKinect.setTilt( Rand::randFloat() * 62 - 31 );
+//	mKinect->setTilt( Rand::randFloat() * 62 - 31 );
 
 	// make the LED yellow
-//	mKinect.setLedColor( Kinect::LED_YELLOW );
+//	mKinect->setLedColor( Kinect::LED_YELLOW );
 	
 	// toggle infrared video
-	mKinect.setVideoInfrared( ! mKinect.isVideoInfrared() );
+	mKinect->setVideoInfrared( ! mKinect->isVideoInfrared() );
 }
 
 void kinectBasicApp::update()
 {	
-	if( mKinect.checkNewDepthFrame() )
-		mDepthTexture = mKinect.getDepthImage();
+	if( mKinect->checkNewDepthFrame() )
+		mDepthTexture = mKinect->getDepthImage();
 	
-	if( mKinect.checkNewVideoFrame() )
-		mColorTexture = mKinect.getVideoImage();
+	if( mKinect->checkNewVideoFrame() )
+		mColorTexture = mKinect->getVideoImage();
 	
 //	console() << "Accel: " << mKinect.getAccel() << std::endl;
 }
