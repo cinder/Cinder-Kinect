@@ -26,7 +26,7 @@ class PointCloudGl : public AppBasic {
 	void draw();
 	
 	// PARAMS
-	params::InterfaceGl	mParams;
+	params::InterfaceGlRef	mParams;
 	
 	// CAMERA
 	CameraPersp		mCam;
@@ -54,10 +54,10 @@ void PointCloudGl::prepareSettings( Settings* settings )
 void PointCloudGl::setup()
 {	
 	// SETUP PARAMS
-	mParams = params::InterfaceGl( "KinectPointCloud", Vec2i( 200, 180 ) );
-	mParams.addParam( "Scene Rotation", &mSceneRotation, "opened=1" );
-	mParams.addParam( "Cam Distance", &mCameraDistance, "min=100.0 max=5000.0 step=100.0 keyIncr=s keyDecr=w" );
-	mParams.addParam( "Kinect Tilt", &mKinectTilt, "min=-31 max=31 keyIncr=T keyDecr=t" );
+	mParams = params::InterfaceGl::create( "KinectPointCloud", Vec2i( 200, 180 ) );
+	mParams->addParam( "Scene Rotation", &mSceneRotation, "opened=1" );
+	mParams->addParam( "Cam Distance", &mCameraDistance, "min=100.0 max=5000.0 step=100.0 keyIncr=s keyDecr=w" );
+	mParams->addParam( "Kinect Tilt", &mKinectTilt, "min=-31 max=31 keyIncr=T keyDecr=t" );
 	
 	// SETUP CAMERA
 	mCameraDistance = 1000.0f;
@@ -140,7 +140,7 @@ void PointCloudGl::draw()
 		mShader.unbind();
 	gl::popMatrices();
 	
-	params::InterfaceGl::draw();
+	mParams->draw();
 }
 
 
