@@ -234,7 +234,7 @@ freenect_context* Kinect::getContext()
 	// ultimately this should be replaced with a call_once
 	lock_guard<mutex> contextLock( sContextMutex );
 	if( ! sContext ) {
-		if( freenect_init( &sContext, NULL ) < 0 );
+		if( freenect_init( &sContext, NULL ) < 0 )
 			; // throw ExcFailedFreenectInit(); // this seems to always fail
 		freenect_set_log_level( sContext, FREENECT_LOG_ERROR );
 	}
