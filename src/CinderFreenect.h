@@ -146,7 +146,7 @@ class Kinect {
 		template<typename T>
 		struct BufferManager {
 			BufferManager( size_t allocationSize, Obj *kinectObj )
-				: mAllocationSize( allocationSize ), mKinectObj( kinectObj ), mActiveBuffer( 0 )
+				: mKinectObj( kinectObj ), mAllocationSize( allocationSize ), mActiveBuffer( 0 )
 			{}
 			~BufferManager();
 			
@@ -158,7 +158,7 @@ class Kinect {
 
 			Obj						*mKinectObj;
 			size_t					mAllocationSize;
-			// map from pointer to reference count			
+			// map from pointer to reference count
 			std::map<T*,size_t>		mBuffers;
 			T						*mActiveBuffer;
 		};

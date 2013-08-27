@@ -37,7 +37,7 @@ freenect_context*	Kinect::sContext = 0;
 class ImageSourceKinectColor : public ImageSource {
   public:
 	ImageSourceKinectColor( uint8_t *buffer, shared_ptr<Kinect::Obj> ownerObj )
-		: ImageSource(), mData( buffer ), mOwnerObj( ownerObj )
+		: ImageSource(), mOwnerObj( ownerObj ), mData( buffer )
 	{
 		setSize( 640, 480 );
 		setColorModel( ImageIo::CM_RGB );
@@ -67,7 +67,7 @@ class ImageSourceKinectColor : public ImageSource {
 class ImageSourceKinectInfrared : public ImageSource {
   public:
 	ImageSourceKinectInfrared( uint8_t *buffer, shared_ptr<Kinect::Obj> ownerObj )
-		: ImageSource(), mData( buffer ), mOwnerObj( ownerObj )
+		: ImageSource(), mOwnerObj( ownerObj ), mData( buffer )
 	{
 		setSize( 640, 480 );
 		setColorModel( ImageIo::CM_GRAY );
@@ -98,7 +98,7 @@ class ImageSourceKinectInfrared : public ImageSource {
 class ImageSourceKinectDepth : public ImageSource {
   public:
 	ImageSourceKinectDepth( uint16_t *buffer, shared_ptr<Kinect::Obj> ownerObj )
-		: ImageSource(), mData( buffer ), mOwnerObj( ownerObj )
+		: ImageSource(), mOwnerObj( ownerObj ), mData( buffer )
 	{
 		setSize( 640, 480 );
 		setColorModel( ImageIo::CM_GRAY );
@@ -130,7 +130,7 @@ template<typename T>
 class KinectDataDeleter {
   public:
 	KinectDataDeleter( Kinect::Obj::BufferManager<T> *bufferMgr, shared_ptr<Kinect::Obj> ownerObj )
-		: mBufferMgr( bufferMgr ), mOwnerObj( ownerObj )
+		: mOwnerObj( ownerObj ), mBufferMgr( bufferMgr )
 	{}
 	
 	void operator()( T *data ) {
@@ -147,8 +147,9 @@ Kinect::Kinect( Device device )
 }
 
 Kinect::Obj::Obj( int deviceIndex, bool depthRegister )
-	: mShouldDie( false ), mNewVideoFrame( false ), mNewDepthFrame( false ), 
-		mColorBuffers( 640 * 480 * 3, this ), mDepthBuffers( 640 * 480, this ), mVideoInfrared( false )
+	: mColorBuffers( 640 * 480 * 3, this ), mDepthBuffers( 640 * 480, this ),
+		mShouldDie( false ), mVideoInfrared( false ),
+		mNewVideoFrame( false ), mNewDepthFrame( false )
 {
 	if( freenect_open_device( getContext(), &mDevice, deviceIndex ) < 0 )
 		throw ExcFailedOpenDevice();
@@ -234,7 +235,7 @@ freenect_context* Kinect::getContext()
 	// ultimately this should be replaced with a call_once
 	lock_guard<mutex> contextLock( sContextMutex );
 	if( ! sContext ) {
-		if( freenect_init( &sContext, NULL ) < 0 );
+		if( freenect_init( &sContext, NULL ) < 0 )
 			; // throw ExcFailedFreenectInit(); // this seems to always fail
 		freenect_set_log_level( sContext, FREENECT_LOG_ERROR );
 	}
