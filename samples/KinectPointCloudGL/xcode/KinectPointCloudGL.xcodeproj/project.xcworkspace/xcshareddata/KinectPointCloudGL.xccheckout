@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1778E04E-CB2C-4A50-8FBE-87181E721224</string>
+	<key>IDESourceControlProjectName</key>
+	<string>KinectPointCloudGL</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1AB65BB91C117FBF4337A95FC5359C38F3696BC3</key>
+		<string>github.com:m1keall1son/Cinder-Kinect.git</string>
+		<key>AD4B458D0D225ED63FAE0155615993B7D3ECE020</key>
+		<string>github.com:m1keall1son/Cinder.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>samples/KinectPointCloudGL/xcode/KinectPointCloudGL.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1AB65BB91C117FBF4337A95FC5359C38F3696BC3</key>
+		<string>../../../../..</string>
+		<key>AD4B458D0D225ED63FAE0155615993B7D3ECE020</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:m1keall1son/Cinder-Kinect.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1AB65BB91C117FBF4337A95FC5359C38F3696BC3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AD4B458D0D225ED63FAE0155615993B7D3ECE020</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1AB65BB91C117FBF4337A95FC5359C38F3696BC3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Cinder-Kinect</string>
+		</dict>
+	</array>
+</dict>
+</plist>

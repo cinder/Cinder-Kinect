@@ -59,15 +59,16 @@ PointCloudGl::PointCloudGl()
     mParams->addParam( "Kinect Tilt", &mKinectTilt, "min=-31 max=31 keyIncr=T keyDecr=t" );
     
     // SETUP CAMERA
-    mCameraDistance = 1000.0f;
-    mEye			= vec3( 0.0f, 0.0f, mCameraDistance );
-    mCenter			= vec3(0);
+    mCameraDistance = 10.0f;
+    mEye			= vec3( -10.0f, 10.0f, mCameraDistance );
+    mCenter			= vec3(0,0,-5.);
     mUp				= vec3(0,1,0);
-    mCam.setPerspective( 75.0f, getWindowAspectRatio(), 1.0f, 8000.0f );
+    mCam.setPerspective( 75.0f, getWindowAspectRatio(), 1.0f, 100000.0f );
+    mCam.lookAt(mEye, mCenter, mUp);
     
     // SETUP KINECT AND TEXTURES
     mKinect			= Kinect::create(); // use the default Kinect
-    mDepthTexture	= gl::Texture::create( mKinect->getWidth(), mKinect->getHeight(), gl::Texture::Format().internalFormat(GL_RED).dataType(GL_UNSIGNED_SHORT).minFilter(GL_NEAREST).magFilter(GL_NEAREST) );
+    mDepthTexture	= gl::Texture::create( mKinect->getWidth(), mKinect->getHeight(), gl::Texture::Format().internalFormat(GL_R16UI).dataType(GL_UNSIGNED_SHORT).minFilter(GL_NEAREST).magFilter(GL_NEAREST) );
     
     // SETUP VBO AND SHADER
     
@@ -80,7 +81,11 @@ PointCloudGl::PointCloudGl()
     auto mesh = createVboMesh();
     mPointCloud = gl::Batch::create( mesh, mPointCloudShader );
     mPointCloudShader->uniform("uDepthTexture", 0);
-    
+    mPointCloudShader->uniform( "ref_pix_size", mKinect->getZeroPlanePixelSize() );
+    mPointCloudShader->uniform( "ref_distance", mKinect->getZeroPlaneDistance() );
+    mPointCloudShader->uniform( "const_shift", mKinect->getRegistrationConstShift() );
+    mPointCloudShader->uniform( "dcmos_emitter_dist", mKinect->getDcmosEmitterDist() );
+
     // SETUP GL
     gl::enableDepthWrite();
     gl::enableDepthRead();
@@ -100,7 +105,7 @@ gl::VboMeshRef PointCloudGl::createVboMesh()
             float xPer	= x / (float)(VBO_X_RES-1);
             float yPer	= y / (float)(VBO_Y_RES-1);
             
-            auto position = vec3( ( xPer * 2.0f - 1.0f ) * VBO_X_RES, ( yPer * 2.0f - 1.0f ) * VBO_Y_RES, 0.0f );
+            auto position = vec3( x, y, 0. );//vec3( ( xPer * 2.0f - 1.0f ) * VBO_X_RES, ( yPer * 2.0f - 1.0f ) * VBO_Y_RES, 0.0f );
             auto tc = vec2( xPer, yPer );
             
             data.push_back(position.x);
@@ -131,9 +136,6 @@ void PointCloudGl::update()
     
     if( mKinectTilt != mKinect->getTilt() )
         mKinect->setTilt( mKinectTilt );
-    
-    mEye = vec3( 0.0f, 0.0f, mCameraDistance );
-    mCam.lookAt( mEye, mCenter, mUp );
     
 }
 

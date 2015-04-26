@@ -120,7 +120,9 @@ class Kinect {
 
     float   getZeroPlaneDistance() const;
     float   getZeroPlanePixelSize() const;
-
+    float   getRegistrationConstShift() const;
+    float   getDcmosEmitterDist() const;
+    
 	//! Returns the number of Kinect devices attached to the system
 	static int	getNumDevices();
 

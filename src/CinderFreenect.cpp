@@ -288,6 +288,16 @@ float Kinect::getZeroPlanePixelSize() const
 {
     return mObj->mDevice->registration.zero_plane_info.reference_pixel_size;
 }
+    
+float Kinect::getRegistrationConstShift() const
+{
+    return mObj->mDevice->registration.const_shift;
+}
+    
+float Kinect::getDcmosEmitterDist() const
+{
+    return mObj->mDevice->registration.zero_plane_info.dcmos_emitter_dist;
+}
 
 void Kinect::setLedColor( LedColor ledColorCode )
 {
