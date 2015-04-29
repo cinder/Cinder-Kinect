@@ -1,4 +1,5 @@
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/Surface.h"
@@ -13,28 +14,30 @@ using namespace ci::app;
 using namespace std;
 
 
-class kinectBasicApp : public AppBasic {
+class kinectBasicApp : public App {
   public:
-	void prepareSettings( Settings* settings );
-	void setup();
-	void mouseUp( MouseEvent event );
-	void update();
-	void draw();
+
+    kinectBasicApp();
+    void mouseUp( MouseEvent event )override;
+	void update()override;
+	void draw()override;
 	
-	KinectRef		mKinect;
-	gl::Texture		mColorTexture, mDepthTexture;	
+	KinectRef           mKinect;
+	gl::TextureRef		mColorTexture, mDepthTexture;
 };
 
-void kinectBasicApp::prepareSettings( Settings* settings )
-{
-	settings->setWindowSize( 1280, 480 );
-}
 
-void kinectBasicApp::setup()
+
+kinectBasicApp::kinectBasicApp()
 {
 	console() << "There are " << Kinect::getNumDevices() << " Kinects connected." << std::endl;
 
-	mKinect = Kinect::create();
+    mKinect = Kinect::create();
+
+    mColorTexture = gl::Texture::create(mKinect->getWidth(), mKinect->getHeight(), gl::Texture::Format().internalFormat(GL_RGB).dataType(GL_UNSIGNED_BYTE) );
+    
+    mDepthTexture = gl::Texture::create(mKinect->getWidth(), mKinect->getHeight(), gl::Texture::Format().internalFormat(GL_RED).dataType(GL_UNSIGNED_SHORT) );
+    
 }
 
 void kinectBasicApp::mouseUp( MouseEvent event )
@@ -42,36 +45,40 @@ void kinectBasicApp::mouseUp( MouseEvent event )
 	writeImage( getHomeDirectory() / "kinect_video.png", mKinect->getVideoImage() );
 	writeImage( getHomeDirectory() / "kinect_depth.png", mKinect->getDepthImage() );
 	
-	// set tilt to random angle
-//	mKinect->setTilt( Rand::randFloat() * 62 - 31 );
-
 	// make the LED yellow
-//	mKinect->setLedColor( Kinect::LED_YELLOW );
+    mKinect->setLedColor( Kinect::LED_YELLOW );
 	
 	// toggle infrared video
 	mKinect->setVideoInfrared( ! mKinect->isVideoInfrared() );
 }
 
 void kinectBasicApp::update()
-{	
+{
+    
 	if( mKinect->checkNewDepthFrame() )
-		mDepthTexture = mKinect->getDepthImage();
+		mDepthTexture->update( Channel16u( mKinect->getDepthImage() ) );
 	
 	if( mKinect->checkNewVideoFrame() )
-		mColorTexture = mKinect->getVideoImage();
+		mColorTexture->update( Surface8u( mKinect->getVideoImage() ) );
 	
-//	console() << "Accel: " << mKinect.getAccel() << std::endl;
+	console() << "Accel: " << mKinect->getAccel() << std::endl;
 }
 
 void kinectBasicApp::draw()
 {
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::clear( Color( 0, 0, 0 ) );
+    
 	gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
+    
 	if( mDepthTexture )
 		gl::draw( mDepthTexture );
 	if( mColorTexture )
-		gl::draw( mColorTexture, Vec2i( 640, 0 ) );
+		gl::draw( mColorTexture, ivec2( 640, 0 ) );
 }
 
+void prepareSettings( App::Settings* settings )
+{
+    settings->setWindowSize( 1280, 480 );
+}
 
-CINDER_APP_BASIC( kinectBasicApp, RendererGl )
+CINDER_APP( kinectBasicApp, RendererGl, prepareSettings )

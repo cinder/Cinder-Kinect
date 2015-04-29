@@ -90,18 +90,18 @@ class Kinect {
 	//! Returns the height of the captured image in pixels.
 	int32_t		getHeight() const { return 480; }
 	//! Returns the size of the captured image in pixels.
-	Vec2i		getSize() const { return Vec2i( getWidth(), getHeight() ); }
+	ivec2		getSize() const { return ivec2( getWidth(), getHeight() ); }
 	//! Returns the aspect ratio of the capture imagee, which is its width / height
 	float		getAspectRatio() const { return getWidth() / (float)getHeight(); }
 	//! Returns the bounding rectangle of the capture imagee, which is Area( 0, 0, width, height )
 	Area		getBounds() const { return Area( 0, 0, getWidth(), getHeight() ); }
-	
+    	
 	typedef enum { LED_OFF = 0, LED_GREEN = 1, LED_RED = 2, LED_YELLOW = 3, LED_BLINK_YELLOW = 4, LED_BLINK_GREEN = 5, LED_BLINK_RED_YELLOW = 6 } LedColor;
 	//! Sets the device's LED color/blink state
 	void		setLedColor( LedColor ledColorCode );
 
 	//! Returns the current accelerometer data, measured as meters/second<sup>2</sup>.
-	Vec3f		getAccel() const;
+	vec3		getAccel() const;
 	
 	ImageSourceRef			getVideoImage();
 	ImageSourceRef			getDepthImage();
@@ -118,7 +118,11 @@ class Kinect {
 	//void		setDepthRegistered( bool registerDepth = true );
 	//bool		isDepthRegistered() const { return mObj->mVideoInfrared; }
 
-
+    float   getZeroPlaneDistance() const;
+    float   getZeroPlanePixelSize() const;
+    float   getRegistrationConstShift() const;
+    float   getDcmosEmitterDist() const;
+    
 	//! Returns the number of Kinect devices attached to the system
 	static int	getNumDevices();
 
@@ -146,7 +150,7 @@ class Kinect {
 		template<typename T>
 		struct BufferManager {
 			BufferManager( size_t allocationSize, Obj *kinectObj )
-				: mAllocationSize( allocationSize ), mKinectObj( kinectObj ), mActiveBuffer( 0 )
+				: mKinectObj( kinectObj ), mAllocationSize( allocationSize ), mActiveBuffer( 0 )
 			{}
 			~BufferManager();
 			
@@ -158,7 +162,7 @@ class Kinect {
 
 			Obj						*mKinectObj;
 			size_t					mAllocationSize;
-			// map from pointer to reference count			
+			// map from pointer to reference count
 			std::map<T*,size_t>		mBuffers;
 			T						*mActiveBuffer;
 		};
@@ -175,6 +179,7 @@ class Kinect {
 		volatile bool					mNewVideoFrame, mNewDepthFrame;
 		volatile bool					mLastVideoFrameInfrared;
 		float							mTilt;
+
 	};
 
   protected:
