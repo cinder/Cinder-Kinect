@@ -285,12 +285,12 @@ void Kinect::setLedColor( LedColor ledColorCode )
 	freenect_set_led( mObj->mDevice, (freenect_led_options)code );
 }
 
-Vec3f Kinect::getAccel() const
+vec3 Kinect::getAccel() const
 {
-	Vec3d raw;
+	dvec3 raw;
 	freenect_update_tilt_state( mObj->mDevice );
 	freenect_get_mks_accel( freenect_get_tilt_state( mObj->mDevice ), &raw.x, &raw.y, &raw.z );
-	return Vec3f( raw );
+	return vec3( raw );
 }
 
 ImageSourceRef Kinect::getVideoImage()
