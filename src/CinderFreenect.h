@@ -90,7 +90,7 @@ class Kinect {
 	//! Returns the height of the captured image in pixels.
 	int32_t		getHeight() const { return 480; }
 	//! Returns the size of the captured image in pixels.
-	Vec2i		getSize() const { return Vec2i( getWidth(), getHeight() ); }
+	vec2		getSize() const { return vec2( getWidth(), getHeight() ); }
 	//! Returns the aspect ratio of the capture imagee, which is its width / height
 	float		getAspectRatio() const { return getWidth() / (float)getHeight(); }
 	//! Returns the bounding rectangle of the capture imagee, which is Area( 0, 0, width, height )
@@ -101,7 +101,7 @@ class Kinect {
 	void		setLedColor( LedColor ledColorCode );
 
 	//! Returns the current accelerometer data, measured as meters/second<sup>2</sup>.
-	Vec3f		getAccel() const;
+	vec3		getAccel() const;
 	
 	ImageSourceRef			getVideoImage();
 	ImageSourceRef			getDepthImage();
